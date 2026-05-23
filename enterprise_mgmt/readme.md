@@ -1,4 +1,4 @@
-企业内部业务管理系统开发方案
+**企业内部业务管理系统开发方案**
 
 完整目录结构：
 ```
@@ -32,3 +32,17 @@ enterprise_mgmt/
 └── utils/
     └── excel_exporter.py      # 带样式的Excel导出
 ```
+
+安装运行
+```
+# 1. 解压后进入目录
+cd enterprise_mgmt
+
+# 2. 安装依赖
+pip install -r requirements.txt
+
+# 3. 启动
+python main.py
+```
+
+首次运行自动建库建表，预置 5 个部门，SQLite 文件生成在项目根目录 enterprise.db。
