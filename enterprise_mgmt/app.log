@@ -1,0 +1,16 @@
+2026-05-23 20:17:57  [INFO]  database.db_manager: 数据库连接已建立: C:\yue\pyqt_demo\enterprise_mgmt\enterprise.db
+2026-05-23 20:17:57  [INFO]  database.db_manager: 数据库初始化完成
+2026-05-23 20:17:57  [INFO]  main: 数据库初始化完成
+2026-05-23 20:20:02  [INFO]  database.db_manager: 数据库连接已建立: C:\yue\pyqt_demo\enterprise_mgmt\enterprise.db
+2026-05-23 20:20:02  [INFO]  database.db_manager: 数据库初始化完成
+2026-05-23 20:20:02  [INFO]  main: 数据库初始化完成
+2026-05-23 20:20:04  [INFO]  main: 应用启动成功
+2026-05-23 20:21:47  [INFO]  bll.inventory_bll: 采购入库完成: PO000001, 商品=P0001, 数量=12
+2026-05-23 20:22:19  [INFO]  bll.inventory_bll: 采购入库完成: PO000002, 商品=P0002, 数量=22
+2026-05-23 20:23:26  [INFO]  dal.employee_dal: 员工新增成功: E0001
+2026-05-23 20:23:26  [INFO]  bll.employee_bll: 员工 张三 (E0001) 入职登记完成
+2026-05-23 20:23:50  [INFO]  dal.employee_dal: 员工新增成功: E0002
+2026-05-23 20:23:50  [INFO]  bll.employee_bll: 员工 Jimmy (E0002) 入职登记完成
+2026-05-23 20:24:24  [INFO]  dal.employee_dal: 员工新增成功: E0003
+2026-05-23 20:24:24  [INFO]  bll.employee_bll: 员工 Emily (E0003) 入职登记完成
+2026-05-23 20:29:06  [INFO]  database.db_manager: 数据库连接已关闭
