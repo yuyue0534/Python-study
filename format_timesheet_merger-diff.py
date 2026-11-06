@@ -224,3 +224,41 @@ def parse_source(path: Path) -> list[dict]:
 
     finally:
         wb.close()
+
+===========================
+
+-        # 构建候选列表：active 优先，Timesheet 兜底
++        # 候选顺序：active → Timesheet → 其他工作表
+         candidates = []
++        seen_titles = set()
+         active_ws = wb.active
+ 
++        def add_candidate(ws):
++            if ws.title not in seen_titles:
++                candidates.append(ws)
++                seen_titles.add(ws.title)
++
+         if active_ws is not None:
+-            candidates.append(active_ws)
++            add_candidate(active_ws)
+ 
+-        for sname in wb.sheetnames:
+-            if sname.strip().lower() == "timesheet":
+-                ws = wb[sname]
+-
+-                if all(ws.title != item.title for item in candidates):
+-                    candidates.append(ws)
+-
+-                break
++        # 优先添加 Timesheet，兼容大小写和首尾空格
++        for ws in wb.worksheets:
++            if ws.title.strip().lower() == "timesheet":
++                add_candidate(ws)
++
++        # 最后添加其余工作表，避免数据页名称不同而漏读
++        for ws in wb.worksheets:
++            add_candidate(ws)
+@@
+-            source = "active" if ws is active_ws else "Timesheet"
++            source = "active" if ws is active_ws else "备选"
+             logger.info(f"  [候选] 使用 {source} sheet：'{ws.title}'")
