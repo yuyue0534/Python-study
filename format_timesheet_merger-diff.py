@@ -262,3 +262,28 @@ def parse_source(path: Path) -> list[dict]:
 -            source = "active" if ws is active_ws else "Timesheet"
 +            source = "active" if ws is active_ws else "备选"
              logger.info(f"  [候选] 使用 {source} sheet：'{ws.title}'")
+
+
+===============================================================
+
+
+@@
+ DEFAULT_OUT_DIR = "./output"
+ 
++# 示例人员工号：对应 sheet 整页跳过，不提取工时
++EXCLUDED_STAFF_IDS = {"XCS01818"}
++
+@@
+                 if staff_id and emp_name:
+                     break
+ 
++            # 示例人员所在页整页跳过，继续检查下一个候选 sheet
++            if staff_id.strip().upper() in EXCLUDED_STAFF_IDS:
++                logger.info(
++                    f"  [排除示例页] {path.name} → sheet '{ws.title}'："
++                    f"{staff_id} / {emp_name}，忽略该页全部工时"
++                )
++                continue
++
+             # 保留原规则：Staff ID / Name 至少找到一个即可
+             if not staff_id and not emp_name:
