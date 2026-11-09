@@ -287,3 +287,35 @@ def parse_source(path: Path) -> list[dict]:
 +
              # 保留原规则：Staff ID / Name 至少找到一个即可
              if not staff_id and not emp_name:
+
+
+===================================================
+
+#① 配置区增加日期范围及校验：
+@@
+ DEFAULT_OUT_DIR = "./output"
+ 
++# 仅保留 Date 在此范围内的明细，包含开始和结束日期
++FILTER_START_DATE = "2026-09-07"
++FILTER_END_DATE = "2026-10-04"
++
++# 校验配置，并统一为 YYYY-MM-DD 格式
++FILTER_START_DATE = date.fromisoformat(FILTER_START_DATE).isoformat()
++FILTER_END_DATE = date.fromisoformat(FILTER_END_DATE).isoformat()
++
++if FILTER_START_DATE > FILTER_END_DATE:
++    raise ValueError("日期过滤配置错误：开始日期不能晚于结束日期")
+
+
+#② 在 extract_sheet() 中增加过滤：
+@@
+         parsed_date = _parse_date(raw_date)
+         if parsed_date is None:
+             continue
+ 
++        # _parse_date 返回 YYYY-MM-DD，可直接比较日期先后
++        if not (FILTER_START_DATE <= parsed_date <= FILTER_END_DATE):
++            continue
++
+         rows.append({
+             "Date":        parsed_date,
