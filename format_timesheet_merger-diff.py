@@ -319,3 +319,32 @@ def parse_source(path: Path) -> list[dict]:
 +
          rows.append({
              "Date":        parsed_date,
+
+============2026-11-20，diff===========
+
+@@
+-import pyperclip
+ import pandas as pd
+@@
+-def load_staff_from_clipboard() -> dict:
+-    print("\n" + "=" * 50)
+-    print("【花名册加载】请先在 Excel 花名册中复制 A~L 列所有数据（含标题行），")
+-    print("然后按回车继续...")
+-    print("=" * 50)
+-    input()
+-
++def load_staff_from_txt() -> dict:
+     try:
+-        raw = pyperclip.paste()
++        staff_path = Path(__file__).resolve().parent / "teaminfoList.txt"
++        raw = staff_path.read_text(encoding="utf-8-sig")
+         df = pd.read_csv(
+@@
+-        logger.info(f"[花名册] 已从剪贴板加载 {len(result)} 条记录")
++        logger.info(f"[花名册] 已从 {staff_path.name} 加载 {len(result)} 条记录")
+@@
+-        logger.warning(f"[花名册] 剪贴板读取失败：{e}，相关列将全部填 '-'")
++        logger.warning(f"[花名册] TXT读取失败：{e}，相关列将全部填 '-'")
+@@
+-    staff_dict = load_staff_from_clipboard()
++    staff_dict = load_staff_from_txt()
